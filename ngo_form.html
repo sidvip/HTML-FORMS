@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+                img.background{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    z-index: -1;   
+                   filter: blur(28px);
+                }
+                input[type=submit]{
+                    width: 10em;
+                    height: 2em;
+                    color: green;
+                    border: 3px solid black;
+                    border-radius: 10px;
+
+                }
+                input[type=text]{
+                    width: 20em;
+                    height: 2em;
+                    padding: 10px 8px;
+                    box-sizing: border-box;
+                    border: 3px ;
+                    border-radius: 10px;
+
+                }
+                h3{
+                    color: rgb(236, 236, 19);
+                }
+                
+    
+        </style>
+<head>
+    <title> NGO Registration Form</title>
+</head>
+<body >
+ <img class="background" src="rest1.jpg" alt="rest1"
+            width="300" height="300">
+            <!-- <p id="start">hello</p> -->
+       
+ <font size="5" color="white"><b>
+<table align='center'  border='0' width='950px' cellpadding='2px' cellspacing='0' align='center'>
+<center><tr>
+	
+   <td><h1> NGO Registration Form </h1></td>
+</tr><center>
+ <tr> <td>&nbsp;</td> </tr>
+<table  border='0' width='950' cellpadding='0' cellspacing='2px' align='center'>
+<tr>
+    <td align='left'>Name<sup>*</sup>:</td>
+    <td><input type='text' name='restaurant_name' id="1" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td> Address Line 1<sup>*</sup>:</td>
+    <td><input type='text' name='address_line1' id="2" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Address Line 2:</td>
+    <td><input type='text' name='address_line2' id="3"></td>
+    <td align='left'>E-mail<sup>*</sup>: </td>
+    <td><input type='text' name='email' id="11"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>City<sup>*</sup>:</td>
+    <td><input type='text' name='city' id="4" required></td>
+    <td align='left'>State<sup>*</sup>:</td>
+    <td><input type='text' name='state' id="5" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Pincode<sup>*</sup>:</td>
+    <td><input type='text' name='pincode' id="6"  size="6" maxlength="6" required></td>
+    <td align='left'>Country<sup>*</sup>:</td>
+    <td><input type='text' name='country' id="7" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Contact Number<sup>*</sup>:</td>
+    <td><input type='text' name='contact_number' id="9"  size="10" maxlength="10" required></td>
+    <td align='left'>Contact Person<sup>*</sup>:</td>
+    <td><input type='text' name='contact_person' id="10" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<!-- <tr> <td>&nbsp;</td> </tr> -->
+<!-- <tr> <td>&nbsp;</td> </tr> -->
+<tr>
+	<td></td>
+	<td align='center'><input type="button" onclick="save_in_json_object()"  value="REGISTER"> </td>
+</tr>
+<tr> 
+<td>&nbsp;</td> </tr>
+
+</table>
+ 
+</table>
+</b>
+</font>
+
+<script>            
+                
+                function save_in_json_object(){
+					var add=document.getElementById("2").value+document.getElementById("3").value;
+                    var rest_data = {name :document.getElementById("1").value,
+									 address:add,
+									 city:document.getElementById("4").value,
+									 state:document.getElementById("5").value,
+									 zipCode:document.getElementById("6").value,
+									 country:document.getElementById("7").value,
+									 contact:document.getElementById("9").value,
+									 contactPerson:document.getElementById("10").value,
+                                     email: document.getElementById("11").value,
+									 type:"ngo"
+									 
+									 
+                    };
+                    if((rest_data.name)==="")
+                    {
+                        alert(" Name is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.address)==="")
+                    {
+                        alert(" Address is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.email)===""||(rest_data.email).includes("@")===false)
+                    {
+                        alert(" Enter valid email! ");
+                        location.reload();
+                    }
+                    else if((rest_data.city)==="")
+                    {
+                        alert(" City field is empty! ");
+                        location.reload();
+                    }
+                
+                    else if((rest_data.state)==="")
+                    {
+                        alert(" State field is empty! ");
+                        location.reload();
+                    }
+                    else if(isNaN(rest_data.zipCode) == true)
+                    {
+                        alert(" Pincode is invalid! ");
+                        location.reload();
+                    }
+                    else if((rest_data.contact).length != 10 || isNaN(rest_data.contact) == true){
+                        alert(" Contact Number is invalid ! ");
+                        location.reload();
+                    }
+                    else if((rest_data.country)==="")
+                    {
+                        alert(" Country field is empty! ");
+                        location.reload();
+                    }
+                     else if((rest_data.contact)==="")
+                    {
+                        alert(" Enter your contact number ! ");
+                        location.reload();
+                    }
+                    else if((rest_data.contactPerson)==="")
+                    {
+                        alert(" Enter contact person name! ");
+                        location.reload();
+                    }
+                    else{
+                        alert(" NGO registered sucessfully! ");
+                        window.location = 'restaurant_food_publish_form.html'
+                        // location.reload();
+                    }
+                        
+                    var myJSON = "";
+				    myJSON = JSON.stringify(rest_data);
+				    var xhttp_request = new XMLHttpRequest();
+                xhttp_request.onreadystatechange = function(){
+                    console.log('status code is: ', this.status)
+                    if(this.readyState == 4 && this.status == 200){
+                        console.log('status code is: ', this.status)
+                    }
+                    };
+                xhttp_request.open("POST", "http://kbarman2l:8080/RegistrationAPI/webapi/NGO/Register", true);
+                xhttp_request.setRequestHeader("Content-type","application/json");
+                xhttp_request.send(myJSON);
+                
+                
+                     }
+			
+            </script>
+            <h3> * : Fields are mandatory.</h3>
+</body>
+</html>
+ 

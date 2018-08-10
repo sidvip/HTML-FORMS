@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<style>
+               img.background{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    z-index: -1;   
+                   filter: blur(28px);
+                }
+                input[type=submit]{
+                    width: 10em;
+                    height: 2em;
+                    color: green;
+                    border: 3px solid black;
+                    border-radius: 10px;
+
+                }
+                input[type=text]{
+                    width: 18em;
+                    height: 2em;
+                    padding: 10px 8px;
+                    box-sizing: border-box;
+                    border: 3px ;
+                    border-radius: 10px;
+
+                }
+                h3{
+                    color: yellow;
+                }
+        </style>
+<head><title>Restaurant Registration Form</title></head>
+<body >
+ <img class="background" src="rest1.jpg" alt="rest1"
+            width="300" height="300">
+            <!-- <p id="start">hello</p> -->
+       
+ <font size="3" color="white"><b>
+<table align='center'  border='0' width='900px' cellpadding='0' cellspacing='0' align='center'>
+<center><tr>
+	
+   <td><h1> Restaurant Registration Form </h1></td>
+</tr><center>
+ <tr> <td>&nbsp;</td> </tr>
+<table  border='0' width='900' cellpadding='0' cellspacing='2px' align='center'>
+<tr>
+    <td align='left'>Name<sup>*</sup>:</td>
+    <td><input type='text' name='restaurant_name' id="1" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td> Address Line<sup>*</sup> 1:</td>
+    <td><input type='text' name='address_line1' id="2" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Address Line 2:</td>
+    <td><input type='text' name='address_line2' id="3"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>City<sup>*</sup>:</td>
+    <td><input type='text' name='city' id="4" required></td>
+    <td align='left'>State<sup>*</sup>:</td>
+    <td><input type='text' name='state' id="5" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Pincode<sup>*</sup>:</td>
+    <td><input type='text'  name='pincode' id="6"  size="6" maxlength="6" required></td>
+    <td align='left'>Country<sup>*</sup>:</td>
+    <td><input type='text' name='country' id="7" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+	<td align='left'>Restaurant Type<sup>*</sup>:</td>
+    <td><input type="radio" name="veg" value="Veg"  id="" onclick="setValue(this.value)"> Veg<br></td>
+    <td><input type="radio" name="nonveg" value="Nonveg"  id="" onclick="setValue(this.value)"> Nonveg<br></td>
+    <td><input type="radio" name="both" value="Both"  id="" onclick="setValue(this.value)"> Both<br></td>
+	
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+
+    <td align='left'>Website<sup>*</sup>:</td>
+    <td><input type='text' name='website' id="9"></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Opening time<sup>*</sup>:</td>
+    <td><input type='text' name='opening_time' id="10" required></td>
+    <td align='left'>Closing time<sup>*</sup>:</td>
+    <td><input type='text' name='closing time' id="11" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Email<sup>*</sup>:</td>
+    <td><input type='text' name='email' id="12" required></td>
+</tr>
+<tr> <td>&nbsp;</td> </tr>
+<tr>
+    <td align='left'>Contact Number<sup>*</sup>:</td>
+    <td><input type='text' name='contact_number' id="13" size="10" maxlength="10"></td>
+    <td align='left'>Upload file<sup>+</sup>:</td>
+    <td><input type='file' id="15" accept="file/csv" onclick="reset_func()" required></td>
+    <td><input type='button' name='upload' id="15" onclick="readFile()" value="Upload"></td>
+
+</tr>
+
+<tr> <td>&nbsp;</td> </tr>
+<!-- <tr> <td>&nbsp;</td> </tr> -->
+<!-- <tr> <td>&nbsp;</td> </tr> -->
+<tr> <td>&nbsp;</td> </tr>
+    <tr>
+	<td></td>
+	<td align='center'><input type="button" onclick="save_in_json_object()" value="REGISTER"> </td>
+</tr>
+<tr> 
+<td>&nbsp;</td> </tr>
+
+</table>
+ 
+</table>
+</b>
+</font>
+
+<h2 id = "demo1" hidden> <h2>
+<h2 id = "demo2" hidden> <h2>
+
+
+<script>  
+
+    function setValue(arg) {
+				document.getElementById("demo2").innerHTML = arg ; 
+                // alert(document.getElementById("demo2").innerHTML);
+        
+				}
+ 
+    function reset_func(){
+        document.getElementById('demo1').innerHTML = "";
+
+    }
+
+    
+    var fileInput = document.getElementById("15"),readFile = function () {
+     var reader = new FileReader();
+     document.getElementById('demo1').innerHTML = reader.result;
+    reader.onload = function () {var csv_content = (reader.result).split(",");
+        var num_of_objects = csv_content.length;
+        var new_doc = window.open(""," Restaurant Menu", "height=500px, width=500px", "left=50px top=50px");
+        new_doc.document.write("<html><head><title>Restaurant Menu Card</title></head>");
+        
+        new_doc.document.write("<body><center><h1> Restaurant Name: " + document.getElementById("1").value + "</h1>")
+        new_doc.document.write("<h2> Menu Card </h2>");
+        new_doc.document.write("<table id=\"menu\"><tr><td><h3>Food Items Available</h3></td></tr></table>");
+        for(i=0; i< num_of_objects; i++){
+            var one_row = csv_content[i];
+            new_doc.document.write("<h4><tr>" + one_row + "<\/h4><\/tr>");
+            document.getElementById('demo1').innerHTML += one_row
+            if (i<num_of_objects-1){
+                document.getElementById('demo1').innerHTML += ",";//one_row.split(",")[0];
+            }
+            }
+            console.log(document.getElementById('demo1').innerHTML);
+            new_doc.document.write("<\/script></html>");
+    //    new_doc.close();
+    };
+    reader.readAsBinaryString(fileInput.files[0]);
+    };
+    fileInput.addEventListener('click', readFile);
+
+
+function save_in_json_object(){
+    	var add=document.getElementById("2").value+document.getElementById("3").value;
+        // var items = document.getElementById("demo1").innerHTML;
+        // items = items.split(",");
+        // var num_of_items = items.length;
+        // var final_array = items.slice(0,num_of_items-1);
+        // alert(items.length);
+        // var items_array = [];
+        // for(j = 0; j< (num_of_items-1); j++)
+        // {
+        //     items_array.push(items[j]);
+        //     alert(j + items_array[j]);
+        // }
+        // alert(items_array[5]);
+        var rest_data = {name :document.getElementById("1").value,
+								 address:add,
+								 city:document.getElementById("4").value,
+								 state:document.getElementById("5").value,
+								 zipCode:document.getElementById("6").value,
+								 country:document.getElementById("7").value,
+								 preference:document.getElementById("demo2").innerHTML,		 
+								 website:document.getElementById("9").value,
+								 openingTime:document.getElementById("10").value,
+								 closingTime:document.getElementById("11").value,
+								 email:document.getElementById("12").value,
+								 contact:document.getElementById("13").value,
+	    						 type:"restaurant",
+                                 foodMenu: document.getElementById("demo1").innerHTML};
+                       console.log(rest_data);
+                    if((rest_data.name)==="")
+                    {
+                        alert(" Name is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.address)==="")
+                    {
+                        alert(" Address is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.city)==="")
+                    {
+                        alert(" City field is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.state)==="")
+                    {
+                        alert(" State field is empty! ");
+                        location.reload();
+                    }
+                    else if(isNaN(rest_data.zipCode) == true)
+                    {
+                        alert(" Pincode is invalid! ");
+                        location.reload();
+                    }
+                    else if((rest_data.country)==="")
+                    {
+                        alert(" Country field is empty! ");
+                        location.reload();
+                    }
+                    else if((rest_data.preference)==="")
+                    {
+                        alert(" Enter contact person name! ");
+                        location.reload();
+                    }
+                    else if((rest_data.website)==="")
+                    {
+                        alert(" Website field is empty ! ");
+                        location.reload();
+                    }
+                    else if((rest_data.openingTime)==="")
+                    {
+                        alert(" Opening time is invalid! ");
+                        location.reload();
+                    }
+                    else if((rest_data.closingTime)==="")
+                    {
+                        alert(" Closing time is invalid! ");
+                        location.reload();
+                    }
+
+
+                    else if((rest_data.email)===""||(rest_data.email).includes("@")===false)
+                    {
+                        alert(" Enter valid email! ");
+                        location.reload();
+                    }
+                    // else if((rest_data))
+                    else if((rest_data.contact).length != 10 || isNaN(rest_data.contact) == true || (rest_data.contact).length === ""){
+                        alert(" Contact Number is invalid ! ");
+                        location.reload();
+                    }
+                    else{
+                        alert(" Restaurant registered successfully! ");
+                        // window.location = 'restaurant_food_publish_form.html'
+                        // location.reload();
+                        }
+                    
+                    var myJSON = "";
+                    
+					myJSON = JSON.stringify(rest_data);
+                    console.log(myJSON);
+					var xhttp_request = new XMLHttpRequest();
+                xhttp_request.onreadystatechange = function(){
+                      if(this.readyState == 4 && this.status == 200){
+                        
+                    }
+                    };
+                xhttp_request.open("POST", "http://kbarman2l:8080/RegistrationAPI/webapi/Restaurant/Register", true);
+                xhttp_request.setRequestHeader("Content-type","application/json");
+                xhttp_request.send(myJSON);
+                 }
+                </script>
+<h3> * : Fields are mandatory.</h3>
+<h3>+ : Use csv format file. </h3>
+</body>
+</html>
+ 
